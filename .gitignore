@@ -52,8 +52,6 @@ build-iPhoneSimulator/
 /db/schema.rb
 /tmp/cache/*
 Gemfile.lock
-/public/spree/products/*
-/public
 app/assets/images/
 
 ## MAC ##
