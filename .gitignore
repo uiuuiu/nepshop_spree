@@ -51,7 +51,6 @@ build-iPhoneSimulator/
 /db/schema.rb
 /tmp/cache/*
 Gemfile.lock
-app/assets/images/
 
 ## MAC ##
 .DS_Store
