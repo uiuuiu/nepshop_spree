@@ -61,6 +61,7 @@ namespace :deploy do
   desc 'Initial Deploy'
   task :initial do
     on roles(:app) do
+      execute "psql -U root nep_spree_production < /root/nepshop_app/current/db/db_spree.pgsql"
       before 'deploy:restart', 'puma:start'
       invoke 'deploy'
     end
