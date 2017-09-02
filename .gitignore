@@ -55,3 +55,6 @@ Gemfile.lock
 /public/spree/products/*
 /public
 app/assets/images/
+
+## MAC ##
+.DS_Store
