@@ -1,0 +1,190 @@
+<div class="mainmenu-area <%= 'home2 bg-color-tr' if is_homepage? %> product-items">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="logo">
+          <%= link_to root_path do %>
+            <%= image_tag 'logo.png' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="mainmenu">
+          <nav>
+            <ul>
+              <% list_navigations.each do |navigate| %>
+                <% if navigate.parent_navigation_id.blank? %>
+                  <li class="">
+                    <a href="<%= navigate.link_navigation %>"><%= navigate.name %></a>
+                    <% if navigate.taxonomy_ids.present? %>
+                      <% arr = ["footwear", "footwear", "men", "women"] %>
+                      <div class="mega-menu <%= arr[navigate.taxonomy_ids.split(',').size - 1] %>">
+                    <% elsif navigate.sub_navigations.present? %>
+                      <div class="sub-menu pages">
+                    <% else %>
+                      <div>
+                    <% end %>
+                      <div class="part-1">
+                        <% if navigate.taxonomy_ids.present? %>
+                          <% list_taxonomies(navigate.taxonomy_ids.split(',')).each do |taxonomy| %>
+                            <span>
+                              <% if taxonomy.root.children.present? %>
+                                <a><%= taxonomy.name %></a>
+                                <% taxonomy.root.children.map do |taxon| %>
+                                  <%= link_to taxon.name, seo_url(taxon) %>
+                                <% end %>
+                              <% end %>
+                            </span>
+                          <% end %>
+                        <% elsif navigate.sub_navigations.present? %>
+                          <span>
+                            <% navigate.sub_navigations.each do |navi| %>
+                              <%= link_to navi.link_navigation do %>
+                                <%= navi.name %>
+                              <% end %>
+                            <% end %>
+                          </span>
+                        <% end %>
+                      </div>
+                      <% if navigate.image.present? %>
+                        <div class="part-2">
+                          <%= link_to navigate.link_navigation do  %>
+                            <%= image_tag navigate.image.url(:large) %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="mobile-menu">
+          <nav>
+            <ul>
+              <li>
+                <a href="index.html">Home</a>
+                <ul>
+                  <li><a href="index.html">Home 1</a> </li>
+                  <li><a href="index-2.html">Home 2</a> </li>
+                </ul>
+              </li>
+              <li>
+                <a href="shop.html">Women</a>
+                <ul>
+                  <li>
+                    <a href="#">Dresses</a>
+                    <ul>
+                      <li><a href="#">Coctail</a> </li>
+                      <li><a href="#">day</a> </li>
+                      <li><a href="#">evening</a> </li>
+                      <li><a href="#">sports</a> </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">shoes</a>
+                    <ul>
+                      <li><a href="#">Sports</a> </li>
+                      <li><a href="#">run</a> </li>
+                      <li><a href="#">sandals</a> </li>
+                      <li><a href="#">boots</a> </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">handbags</a>
+                    <ul>
+                      <li><a href="#">Blazers</a> </li>
+                      <li><a href="#">table</a> </li>
+                      <li><a href="#">coats</a> </li>
+                      <li><a href="#">kids</a> </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">clothing</a>
+                    <ul>
+                      <li><a href="#">T-shirts</a> </li>
+                      <li><a href="#">coats</a> </li>
+                      <li><a href="#">Jackets</a> </li>
+                      <li><a href="#">jeans</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="shop.html">Men</a>
+                <ul>
+                  <li>
+                    <a href="#">Bags</a>
+                    <ul>
+                      <li><a href="#">Bootees bag</a> </li>
+                      <li><a href="#">Blazers</a> </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">clothing</a>
+                    <ul>
+                      <li><a href="#">coats</a> </li>
+                      <li><a href="#">T-shirts</a> </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">Lingerie</a>
+                    <ul>
+                      <li><a href="#">Bands</a> </li>
+                      <li><a href="#">Furniture</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="shop.html">Foorwear</a>
+                <ul>
+                  <li>
+                    <a href="#">footwear men</a>
+                    <ul>
+                      <li><a href="#">gifts</a> </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">footwear women</a>
+                    <ul>
+                      <li><a href="#">boots</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="shop.html">Jewellery</a>
+                <ul>
+                  <li><a href="#">Rings</a> </li>
+                </ul>
+              </li>
+              <li><a href="shop.html">Accessories</a> </li>
+              <li>
+                <a href="#">Pages</a>
+                <ul>
+                  <li><a href="about-us.html">About us</a> </li>
+                  <li><a href="blog.html">Blog</a> </li>
+                  <li><a href="blog-details.html">Blog Details</a> </li>
+                  <li><a href="cart.html">Cart</a> </li>
+                  <li><a href="checkout.html">Checkout</a> </li>
+                  <li><a href="contact.html">Contact</a> </li>
+                  <li><a href="my-account.html">My account</a> </li>
+                  <li><a href="shop.html">Shop</a> </li>
+                  <li><a href="shop-list.html">Shop list</a> </li>
+                  <li><a href="single-product.html">Single Shop</a> </li>
+                  <li><a href="wishlist.html">Wishlist</a> </li>
+                  <li><a href="login.html">login page</a> </li>
+                  <li><a href="register.html">register page</a> </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

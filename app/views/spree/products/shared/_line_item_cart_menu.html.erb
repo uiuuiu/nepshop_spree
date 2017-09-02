@@ -1,0 +1,22 @@
+<% variant = line_item.variant %>
+<% product = line_item.product %>
+<% if product.present? %>
+  <% url = spree.product_path(product) %>
+  <li>
+    <div class="cart-img">
+      <%= link_to image_tag(variant.images.first.attachment.url(:mini)),variant.product %>
+    </div>
+    <div class="cart-details">
+      <%= link_to url, itemprop: "url" do %>
+        <%= truncate(product.name, length: 50) %>
+      <% end %>
+      <p>
+        <%= line_item.quantity %> x
+        <%= line_item.single_money.to_html %>
+      </p>
+    </div>
+    <div>
+      <%= link_to '', cart_path, class: 'btn-edit'%>
+    </div>
+  </li>
+<% end %>

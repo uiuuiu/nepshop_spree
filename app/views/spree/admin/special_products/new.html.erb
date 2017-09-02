@@ -1,0 +1,19 @@
+<% content_for :page_title do %>
+<%= link_to Spree.t(:special_products), spree.admin_special_products_url %>
+<% end %>
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @special_products } %>
+<% if @special_product_types.present? %>
+<%= form_for [:admin, @special_product], url: collection_url do |f| %>
+<fieldset>
+  <%= render partial: 'form',
+  locals: {special_product_types: @special_product_types, f: f} %>
+  <%= render 'spree/admin/shared/new_resource_links' %>
+</fieldset>
+<% end %>
+<% else %>
+<div class="alert alert-warning no-objects-found">
+  <%= Spree.t(:You_need_to_configure_special_types_before_you_can_use_this_feature) %>
+  <%= link_to Spree.t(:add_one), spree.new_admin_special_product_type_path %>!
+</div>
+
+<%end%>

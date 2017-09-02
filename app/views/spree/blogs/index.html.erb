@@ -1,0 +1,46 @@
+<div class="blog-main">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="location">
+          <ul>
+            <li><a href="index.html" title="go to homepage">Home<span>/</span></a>  </li>
+            <li><strong> blog</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <%= render partial: 'spree/shared/sidebar' %>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="sidebar-title">
+              <h2>Blog Posts</h2>
+            </div>
+            <div class="blog-area">
+              <% @blogs.each do |blog| %>
+                <div class="single-blog-post-page">
+                  <div class="blog-img">
+                    <%= link_to blog_path(blog) do %>
+                      <%= image_tag blog.try(:image).url(:med) %>
+                    <% end %>
+                  </div>
+                  <div class="blog-content">
+                    <%= link_to blog_path(blog), class: "blog-title" do %>
+                      <%= blog.title %>
+                    <% end %>
+                    <p><%= truncate(blog.body, length: 100, escape: false) %></p>
+                    <%= link_to blog_path(blog), class: "readmore" do %>
+                      read more >
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<!--feature products area start -->
+<div class="features-product home2">
+  <%if @features.present? %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="product-title">
+            <h2>featured products</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="features-home2-slider">
+          <% @features.each do |feature_product| %>
+            <div class="col-md-12">
+              <div class="single-product">
+                <div class="level-pro-new">
+                  <span>new</span>
+                </div>
+                <div class="product-img">
+                  <% url = product_path(feature_product.product.id) %>
+                  <%= link_to url, itemprop: "url" do %>
+                  <%= image_two_products(feature_product.product) %>
+                  <% end %>
+                </div>
+                <div class="product-price">
+                  <div class="product-name">
+                    <%= link_to feature_product.product.name, product_path(feature_product.product.id)%>
+                  </div>
+                  <div class="price-rating">
+                    <span><%= display_price(feature_product.product) %></span>
+                    <div class="ratings">
+                      <%= render 'spree/reviews/stars', stars: feature_product.product.stars %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+<!-- feature products area end

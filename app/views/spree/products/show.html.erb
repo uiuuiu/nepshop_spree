@@ -1,0 +1,144 @@
+<% @class_container = 'single-product-details' %>
+<!-- product main items area start -->
+<div class="row">
+  <div class="product-main-items">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="product-images" data-hook="product_images">
+            <div id="main-image">
+              <div class="panel-body text-center">
+                <%= product_image(@product, itemprop: "image") %>
+              </div>
+            </div>
+            <div class="hidden-xs">
+              <%= render partial: 'spree/products/shared/thumbnails' %>
+            </div>
+
+            <div data-hook="product_properties">
+              <%= render partial: 'properties' %>
+            </div>
+
+            <div data-hook="promotions">
+              <%= render partial: 'promotions' %>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <h1 class="product-name">
+            <%= @product.name %>
+          </h1>
+          <div class="list-product-info">
+            <div class="price-rating">
+              <%= render 'spree/reviews/stars', stars: @product.stars %>
+            </div>
+          </div>
+          <div class="available"
+               data-in-stock="<%= Spree.t(:in_stock) %>"
+               data-out-stock="<%= Spree.t(:out_of_stock) %>">
+            <p>Availability:
+                <% if @product.master.can_supply? %>
+                  <span><%= Spree.t(:in_stock) %></span>
+                  <link itemprop="availability" href="https://schema.org/InStock" />
+                <% elsif @product.variants.empty? %>
+                  <span class="out-of-stock"><%= Spree.t(:out_of_stock) %></span>
+                <% end %>
+            </p>
+          </div>
+          <div class="item-price">
+            <% if @product.price_in(current_currency) && !@product.price.nil? %>
+              <span class="display-price"><%= display_price(@product) %></span>
+              <span itemprop="priceCurrency" content="<%= @product.currency %>"></span>
+
+              <% if @product.master.can_supply? %>
+                <link itemprop="availability" href="https://schema.org/InStock" />
+              <% elsif @product.variants.empty? %>
+                <span class="out-of-stock"><%= Spree.t(:out_of_stock) %></span>
+              <% end %>
+
+            <% else %>
+              <span class="price selling" itemprop="price">
+                <%= Spree.t('product_not_available_in_this_currency') %>
+              </span>
+            <% end %>
+          </div>
+          <div class="action mb-05">
+            <ul class="add-to-links">
+              <li> <a href="#"> <i class="fa fa-heart"></i> </a> </li>
+                <li> <a href="#"> <i class="fa fa-refresh"></i> </a> </li>
+                <li> <a href="#"> <i class="fa fa-envelope"></i> </a> </li>
+            </ul>
+          </div>
+          <div class="single-product-info" itemprop="description" data-hook="description">
+            <p>
+              <%= product_description(@product) %>
+            </p>
+          </div>
+            <%= render partial: 'spree/products/shared/cart_form' %>
+            <%#= render partial: 'cart_form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="single-product-tab-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="single-product-tab">
+          <ul class="single-product-tab-navigation" role="tablist">
+            <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Reviews</a></li>
+            <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Recently view products</a></li>
+            <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">product tag</a></li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content single-product-page">
+            <div role="tabpanel" class="tab-pane fade" id="tab2">
+              <div class="single-p-tab-content">
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in active" id="tab1">
+              <div class="single-p-tab-content">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="product-review">
+                      <% if Spree::Reviews::Config[:include_unapproved_reviews] == false and @product.reviews.approved.count == 0 %>
+                        <p class="reviews-none"><%= Spree.t(:no_reviews_available) %></p>
+                      <% else %>
+                        <%= render 'spree/shared/rating', product: @product, review: 0 %>
+                        <% for review in (Spree::Reviews::Config[:track_locale] ? @product.reviews.localized(I18n.locale) : @product.reviews).default_approval_filter.preview %>
+                          <%= render 'spree/shared/review', review: review %>
+                          <br >
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="rate-product hidden-xs">
+                      <%= render 'spree/shared/review_form',
+                        review: Spree::Review.new, product: @product %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab3">
+              <div class="single-p-tab-content">
+              <ul>
+                <% @tags.each do |tag|%>
+                  <li class="tag-name">
+                    <%= link_to tag.name, "#" %>
+                  </li>
+                <% end %>
+              </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- product main items area end -->
+<%= render partial: 'spree/products/shared/upsell' %>
+<%= render partial: 'spree/products/shared/related' %>

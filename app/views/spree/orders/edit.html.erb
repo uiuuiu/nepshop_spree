@@ -1,0 +1,54 @@
+<% @class_container = 'shopping-cart' %>
+<% if @order.line_items.empty? %>
+  <%= render "spree/orders/shared/cart_empty" %>
+<% else %>
+<div class="row">
+    <div class="col-md-12">
+        <%= form_for @order, url: update_cart_path, html: { id: 'update-cart' } do |order_form| %>
+            <%= render partial: 'spree/orders/shared/form', locals: { order_form: order_form } %>
+            <div class="shopping-button">
+                <div class="continue-shopping">
+                    <%= link_to Spree.t(:continue_shopping), products_path, class: 'button' %>
+                </div>
+                <div class="shopping-cart-left">
+                    <%= link_to Spree.t(:clear_shopping_cart), empty_cart_path, method: :put, class: 'button' %>
+                    <%= button_tag Spree.t(:update_shopping_cart) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="discount-code" data-hook="coupon_code">
+                        <%= order_form.label :coupon_code %>
+                        <p><%= Spree.t(:description_coupon) %></p>
+                        <%= order_form.text_field :coupon_code, size: '30' %>
+                        <div class="shopping-button">
+                          <%= button_tag Spree.t(:coupon_code_apply) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="totals" data-hook="cart_buttons">
+                        <p><%= Spree.t(:cart_subtotal, count: @order.line_items.sum(:quantity)) %>
+                          <span><%= order_form.object.display_item_total %></span>
+                        </p>
+                        <%= render partial: 'spree/orders/shared/adjustments' %>
+                        <h3><%= Spree.t(:grand_total) %> <span><%= order_form.object.display_total %></span></h3>
+                        <div class="shopping-button">
+                            <%= button_tag class: 'button', id: 'checkout-link', name: 'checkout' do %>
+                              <%= Spree.t(:proceed_checkout) %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+<% end %>
+
+<% content_for :js_foot do %>
+<script>
+  Spree.current_order_id = "<%= @order.number %>"
+  Spree.current_order_token = "<%= @order.guest_token %>"
+</script>
+<% end %>

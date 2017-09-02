@@ -1,0 +1,34 @@
+<% @class_container = 'login-area' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 text-center">
+    <div class="login">
+      <div class="login-form-container">
+        <div class="login-text">
+          <h2>login</h2>
+          <% if flash[:alert] %>
+            <span class="alert-danger"><%= flash[:alert] %></span>
+          <% end %>
+        </div>
+        <div class="login-form">
+          <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path do |f| %>
+            <%= f.email_field :email, class: 'form-control', tabindex: 1, placeholder: Spree.t(:email) %>
+            <%= f.password_field :password, class: 'form-control', tabindex: 2, placeholder: Spree.t(:password) %>
+              <div class="button-box">
+                <div class="login-toggle-btn">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me, Spree.t(:remember_me) %>
+                  <%= link_to Spree.t(:forgot_password), spree.recover_password_path %>
+                </div>
+                  <%= f.submit Spree.t(:login), class: 'default-btn btn-block', tabindex: 3 %>
+                <div class="text-center mt-10">
+                  <%= link_to Spree.t(:forgot_password), spree.recover_password_path %>
+                      &nbsp; | &nbsp;
+                  <%= link_to Spree.t(:create_a_new_account), spree.signup_path %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

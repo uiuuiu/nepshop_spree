@@ -1,0 +1,17 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:editing_special_product_types) %>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @special_product_type } %>
+
+<%= form_for [:admin, @special_product_type] do |f| %>
+  <fieldset>
+    <%= render partial: 'form', locals: { f: f } %>
+    <div class="form-actions">
+      <%= button Spree.t('actions.update'), 'ok', 'submit', { class: 'btn-success' } %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), admin_special_product_types_path, icon: 'delete' %>
+    </div>
+  </fieldset>
+<% end %>
+

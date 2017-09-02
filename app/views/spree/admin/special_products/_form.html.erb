@@ -1,0 +1,39 @@
+<%= render partial: 'spree/admin/variants/autocomplete', formats: :js %>
+<%= csrf_meta_tag %>
+
+<div id="add-line-item">
+  <fieldset>
+    <legend><%= Spree.t(:add_special_product) %></legend>
+
+    <div class="row">
+      <div id="featured_product_name" class="col-md-6">
+        <div class="form-group">
+          <%= label_tag :spree_product_id, Spree.t(:name_or_sku_short) %>
+            <% if current_page?(action: "new")%>
+             <%= f.hidden_field :spree_product_id, class: 'variant_autocomplete',style: "display: block !important;" %>
+            <% else %>
+             <%= f.text_field :spree_product_id, class: "form-control",
+               value: special_product.product.name, disabled: true %>
+            <% end %>
+        </div>
+      </div>
+
+      <div id = "special_product_type" class="col-md-6">
+        <div class="form-group">
+         <%= f.label :spree_special_type, Spree.t(:Type)%>
+         <%= f.select :spree_special_product_type_id,
+          options_for_select(special_product_types.map{|type| [type.name, type.id]}, selected: @special_product.spree_special_product_type_id),{}, class: "form-control" %>
+        </div>
+      </div>
+
+      <div id="checkbox">
+        <%= f.label :visible do %>
+          <%= f.check_box :visible %>
+          <%= Spree::SpecialProduct.human_attribute_name(:visible) %>
+        <% end %>
+      </div>
+    </div>
+
+   </fieldset>
+ </div>
+

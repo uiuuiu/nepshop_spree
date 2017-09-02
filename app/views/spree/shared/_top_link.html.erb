@@ -1,0 +1,103 @@
+<div class="top-link">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-md-offset-3 col-sm-9 hidden-xs">
+        <div class="site-option">
+          <ul>
+            <li class="currency"><a href="#">USD <i class="fa fa-angle-down"></i> </a>
+              <ul class="sub-site-option">
+                <li><a href="#">Eur</a></li>
+                <li><a href="#">Usd</a></li>
+              </ul>
+            </li>
+            <li class="language"><a href="#">English <i class="fa fa-angle-down"></i> </a>
+              <ul class="sub-site-option">
+                <li><a href="#">English</a></li>
+                <li><a href="#">English2</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="call-support">
+          <% if spree_current_user.present? %>
+            <p>
+              Wellcome
+              <span>
+                <%= link_to account_path do %>
+                  <% if spree_current_user.bill_address.present? %>
+                    <%= spree_current_user.bill_address.firstname %>
+                    <%= spree_current_user.bill_address.lastname %>
+                  <% else %>
+                    <%= spree_current_user.email%>
+                  <% end %>
+                <% end %>
+              </span>
+            </p>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3">
+        <div class="dashboard">
+          <div class="account-menu">
+            <ul>
+              <li class="search">
+                <a href="#">
+                  <i class="fa fa-search"></i>
+                </a>
+                <ul class="search">
+                  <li>
+                    <form action="">
+                      <%= search_field_tag :keywords, params[:keywords], placeholder: Spree.t(:search), class: "form-control" %>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#">
+                  <i class="fa fa-bars"></i>
+                </a>
+                <ul>
+                  <li>
+                    <%= link_to "My Account" , account_path %>
+                  </li>
+                  <% if spree_current_user.present? %>
+                    <li>
+                      <%= link_to "Log Out" , logout_path %>
+                    </li>
+                  <% else %>
+                    <li>
+                      <%= link_to "Register" , signup_path %>
+                    </li>
+                    <li>
+                      <%= link_to "Log In" , login_path %>
+                    </li>
+                  <% end %>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <span class="append-carts-size">
+            <%= render partial: 'spree/shared/cart_menu' %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :js_foot do %>
+  <script>
+    Spree.fetch_cart()
+  </script>
+  <script>
+    $(function() {
+      $('.account-menu .search a').click(function(e) {
+        $(this).next('ul.search').toggleClass('active');
+      });
+      $('input#keywords').keydown(function(e) {
+        if (e.keyCode == 27) {
+          $(this).closest('ul.search').removeClass('active');
+        }
+      });
+    });
+  </script>
+  <% end %>

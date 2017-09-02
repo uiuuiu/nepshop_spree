@@ -1,0 +1,39 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:magazines) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to 'New Template Magazine', new_object_url,
+    { class: "btn-success", icon: 'add', id: 'admin_new_magazine' } %>
+<% end if can?(:create, Spree::Magazine) %>
+
+<% if @magazines.any? %>
+  <table class="table sortable" id="listing_magazines">
+    <thead>
+      <tr data-hook="option_header">
+        <th class="no-border"></th>
+        <th><%= Spree.t(:title) %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @magazines.each do |magazine| %>
+        <tr class="spree_magazine <%= cycle('odd', 'even')%>" id="<%= spree_dom_id magazine %>" data-hook="option_row">
+          <td class="move-handle text-center">
+            <span class="icon icon-move handle"></span>
+          </td>
+          <td><%= magazine.title %></td>
+          <td class="actions actions-2 text-right">
+            <%= link_to_edit(magazine, class: 'admin_edit_magazine', no_text: true) %>
+            <%= link_to_delete(magazine, no_text: true) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::Magazine)) %>,
+    <%= link_to Spree.t(:add_one), new_object_url %>!
+  </div>
+<% end %>

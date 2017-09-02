@@ -1,0 +1,42 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="<%= I18n.locale %>"><!--<![endif]-->
+<head data-hook="head">
+  <%= render partial: 'spree/shared/head' %>
+</head>
+<body data-hook="body">
+  <%= render partial: 'spree/shared/google_analytics.js' %>
+  <%= render partial: 'spree/shared/header' %>
+
+  <% if content_for?(:product_banner) %>
+    <%= render partial: 'spree/shared/product_banner' %>
+  <% end %>
+
+  <%= render partial: 'spree/shared/breadcrumb' unless is_homepage? %>
+
+  <% if flash.present? && !is_homepage? %>
+    <%= render partial: 'spree/shared/flash' %>
+  <% end %>
+
+  <% unless is_homepage? %>
+    <div class="<%= "#{@class_container}" if @class_container.present? %>" data-hook="body-content">
+      <div class="container">
+  <% end  %>
+
+  <%= yield %>
+
+  <% unless is_homepage? %>
+      </div>
+    </div>
+  <% end  %>
+
+  <%= render partial: 'spree/shared/footer' %>
+
+  <div data-hook="footer_script">
+    <%= render partial: 'spree/shared/js' %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<script type="text/javascript">
+  $(function(){
+    var $name_nav = $('.name_nav'),
+        $link_nav = $('.link_nav'),
+        $taxonomy = $('#navigation_taxonomy_ids');
+
+    abc()
+
+    $(document).on('change', '#navigation_taxonomy_ids', function(){
+      if ($(this).val() == null) {
+        $('.name_nav').prop("disabled", false)
+        $('.link_nav').prop("disabled", false)
+      } else {
+        $('.name_nav').prop("disabled", true)
+        $('.link_nav').prop("disabled", true)
+      }
+    });
+
+    $(document).on('keyup', '.name_nav', function(){
+      abc()
+    })
+
+    function abc() {
+      $taxonomy.prop("disabled", false);
+      $('.name_nav').each(function(e){
+        if ($(this).val().length > 0) {
+          $taxonomy.prop("disabled", true);
+          return false
+        }
+      });
+    }
+
+    $taxonomy.each(function(e){
+      if ($(this).val() == null) {
+        $name_nav.prop("disabled", false)
+        $link_nav.prop("disabled", false)
+      } else {
+        $name_nav.prop("disabled", true)
+        $link_nav.prop("disabled", true)
+      }
+    });
+  });
+</script>

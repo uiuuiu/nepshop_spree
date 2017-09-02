@@ -1,0 +1,45 @@
+ <!-- new products area start -->
+ <div class="new-product home2">
+  <% if @newproducts.present? %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="product-title">
+          <h2>new products</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="features-home2-slider">
+        <% @newproducts.each do |product| %>
+        <div class="col-md-12">
+          <div class="single-product">
+            <div class="level-pro-new">
+              <span>new</span>
+            </div>
+            <div class="product-img">
+              <% url = product_path(product.id) %>
+              <%= link_to url, itemprop: "url" do %>
+              <%= image_two_products(product) %>
+              <% end %>
+            </div>
+            <div class="product-price">
+              <div class="product-name">
+                <%= link_to product.name, product_path(product.id)%>
+              </div>
+              <div class="price-rating">
+                <div class="ratings">
+                  <%= render 'spree/reviews/stars', stars: product.stars %>
+                </div>
+                <span><%= display_price(product) %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <%end%>
+</div>
+<!-- new products area end -->

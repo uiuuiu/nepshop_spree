@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spree_products: one
+  spree_special_product_types: one
+
+two:
+  spree_products: two
+  spree_special_product_types: two

@@ -1,0 +1,62 @@
+<% content_for :head do %>
+  <% if products.respond_to?(:total_pages) %>
+    <%= rel_next_prev_link_tags products %>
+  <% end %>
+<% end %>
+
+<div data-hook="products_search_results_heading">
+  <% if products.empty? %>
+  <div data-hook="products_search_results_heading_no_results_found">
+    <%= Spree.t(:no_products_found) %>
+  </div>
+  <% elsif params.key?(:keywords) %>
+  <div data-hook="products_search_results_heading_results_found">
+    <h6 class="search-results-title"><%= Spree.t(:search_results, keywords: h(params[:keywords])) %></h6>
+  </div>
+  <% end %>
+</div>
+
+<% if products.any? %>
+<div data-hook="list_products">
+  <% products.each do |product| %>
+  <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
+  <div class="col-lg-4 col-sm-6" id="product_<%= product.id %>" data-hook="products_list_item" itemscope itemtype="https://schema.org/Product">
+    <div class="single-product">
+      <!-- <div class="level-pro-new"><span>new</span></div> -->
+      <% cache(@taxon.present? ? [I18n.locale, current_currency, @taxon, product] : cache_key_for_product(product)) do %>
+      <div class="product-img">
+        <%= link_to url, itemprop: "url" do %>
+          <%= image_two_products(product) %>
+        <% end %>
+      </div>
+      <div class="product-price">
+        <div class="product-name">
+          <%= link_to url, itemprop: "url" do %>
+          <%= content_tag(:span, truncate(product.name, length: 50), itemprop: "name", title: product.name) %>
+          <% end %>
+        </div>
+        <div class="price-rating">
+          <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <%= display_price(product) %>
+          </span>
+          <div class="ratings">
+            <%= render 'spree/reviews/stars', stars: product.stars %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+  <% reset_cycle("classes") %>
+  <% end %>
+</div>
+<div class="col-md-12">
+  <div class="toolbar-bottom">
+    <% if products.respond_to?(:total_pages) %>
+    <%= paginate products, theme: 'twitter-bootstrap-3' %>
+    <% end %>
+  </div>
+</div>
+<div style="clear: both"></div><br ><br ><br >
+<div class="index-products"></div>

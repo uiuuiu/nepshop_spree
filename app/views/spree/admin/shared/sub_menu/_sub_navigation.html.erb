@@ -1,0 +1,5 @@
+<% if can? :admin, Spree::Page %>
+  <ul class="nav nav-sidebar">
+    <%= tab Spree::Navigation, url: admin_navigations_path, icon: 'tasks', label:"Navigations" %>
+  </ul>
+<% end %>

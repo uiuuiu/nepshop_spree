@@ -1,0 +1,47 @@
+  <!-- related product area start-->
+  <% if @product.has_related_products?('upsell').present? %>
+  <div class="upsell-product home2">
+    <% if @product.upsell.present? %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="product-title">
+              <h2>Upselll products</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="related-slider">
+            <% @product.upsell.each do |upsell| %>
+              <div class="col-md-12">
+                <div class="single-product">
+                  <div class="product-img">
+                    <% url = product_path(upsell.id) %>
+                    <%= link_to url, itemprop: "url" do %>
+                    <%= image_two_products(upsell) %>
+                    <% end %>
+                  </div>
+                  <%= render partial: 'spree/products/shared/action', locals: { product: upsell } %>
+
+                  <div class="product-price">
+                    <div class="product-name">
+                      <%= link_to upsell.name, product_path(upsell.id)%>
+                    </div>
+                    <div class="price-rating">
+                      <div class="ratings">
+                        <%= render 'spree/reviews/stars', stars: upsell.stars %>
+                      </div>
+                      <span><%= display_price(upsell) %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+<% end %>
+<!-- upsell product area end-->

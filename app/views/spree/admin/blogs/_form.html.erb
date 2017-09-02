@@ -1,0 +1,44 @@
+<div class="row" data-hook="admin_page_form_fields">
+  <div class="col-md-10" data-hook="admin_page_form_left">
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control", required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :body %><br >
+      <%= f.text_area :body, class: "form-control", required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :status %>
+      <%= f.select :status, options_for_select([["Draft", 0], ["Publish", 1], ["Hide", 2]],
+        selected: @blog.status), {prompt: "Please select"}, class: "form-control", required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :publish_date %>
+      <div class="form-group">
+        <div class='input-group date' id='datetimepicker'>
+          <%= f.text_field :publish_date, class: "form-control" %>
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :image %>
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+    <% if current_page?(action: "new")%>
+      <%= render partial: 'spree/admin/shared/new_resource_links' %>
+    <% else %>
+      <%= render partial: 'spree/admin/shared/edit_resource_links' %>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+    $('#datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY HH:mm'
+    });
+  });
+</script>

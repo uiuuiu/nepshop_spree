@@ -1,0 +1,35 @@
+<% if cached_recently_viewed_products.any? %>
+  <div id="recently_viewed" data-hook>
+    <h3 class="product-section-title">Recently View Products</h3>
+
+    <ul id="recently_viewed_products" class="list-group">
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cached_recently_viewed_products.each do |product| %>
+              <tr>
+                <td>
+                  <%= link_to product.name, product %>
+                </td>
+                <td>
+                  <%= link_to product_path(product) do %>
+                    <%= image_tag product.images.first.attachment
+                      .url(:mini) %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= display_price(product) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </ul>
+  </div>
+<% end %>

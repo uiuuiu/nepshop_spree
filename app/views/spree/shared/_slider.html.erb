@@ -1,0 +1,28 @@
+<!-- slider area start -->
+<div class="slider-area home2">
+  <div class="bend niceties preview-2">
+    <div id="nivoslider" class="slides">
+      <% @sliders.each_with_index do |slider, index| %>
+        <%= image_tag slider.background.url(:large),
+          title: "#slider-direction-#{index+1}" %>
+      <% end %>
+    </div>
+    <% if @sliders.present? %>
+      <% @sliders.each_with_index do |slider, index| %>
+        <div id="slider-direction-<%= index+1 %>" class="t-cn slider-direction">
+          <div class="slider-progress"></div>
+          <div class="slider-content t-lfl s-tb slider-<%= index+1 %>">
+            <div class="title-container s-tb-c title-compress">
+              <%= image_tag slider.logo %>
+              <h1 class="title1"><%= slider.title.split(',')[0] %></h1>
+              <h2 class="title2"><%= slider.title.split(',')[1] %></h2>
+              <h3 class="title3"><%= slider.title.split(',')[2] %></h3>
+              <a href="<%= slider.link %>"><span>read more</span></a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<!-- slider area end -->

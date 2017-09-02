@@ -1,0 +1,46 @@
+<fieldset>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.fields_for :title do |s| %>
+          <% if slider.present? && slider.title != ",," %>
+            <% slider.title.split(',').each_with_index do |sli, index| %>
+              <div class="form-group">
+                <label for="">Title <%= index + 1 %></label>
+                <%= s.text_field "" , class: "form-control", value: sli %>
+              </div>
+            <% end %>
+          <% else %>
+            <% (1..3).each do |a| %>
+              <div class="form-group">
+                <label for="">Title <%= a %></label>
+                <%= s.text_field "" , class: "form-control"%>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="cold-md-6">
+      <div class="col-md-6 form-group">
+        <%= f.label :link %>
+        <%= f.text_field :link, class: "form-control" %>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <%= f.label :background %>
+        <%= f.file_field :background, class: "form-control" %>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <%= f.label :logo %>
+        <%= f.file_field :logo, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  <% if current_page?(action: "new") %>
+    <%= render partial: 'spree/admin/shared/new_resource_links' %>
+  <% else %>
+    <%= render partial: 'spree/admin/shared/edit_resource_links' %>
+  <% end %>
+</fieldset>

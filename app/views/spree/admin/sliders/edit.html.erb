@@ -1,0 +1,10 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:sliders), admin_sliders_url %> /
+<% end %>
+
+<%= render partial: 'spree/admin/shared/error_messages',
+  locals: { target: @slider } %>
+
+<%= form_for [:admin, @slider] do |f| %>
+  <%= render partial: "form", locals: {f: f, slider: @slider} %>
+<% end %>

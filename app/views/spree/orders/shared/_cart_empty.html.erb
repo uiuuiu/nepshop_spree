@@ -1,0 +1,10 @@
+<div data-hook="empty_cart" class="empty_cart">
+  <blockquote>
+      <div class="shopping-button">
+        <p><%= Spree.t(:your_cart_is_empty) %></p>
+        <div class="continue-shopping">
+          <%= link_to button_tag(Spree.t(:continue_shopping), class: 'button-active'), products_path %>
+        </div>
+      </div>
+  </blockquote>
+</div>

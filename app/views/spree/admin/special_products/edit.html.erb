@@ -1,0 +1,11 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:editing_resource, resource: Spree::SpecialProduct.model_name.human) %>
+<% end %>
+
+<%= form_for [:admin,@special_product] do |f| %>
+  <fieldset>
+    <%= render partial: 'form',
+      locals: {f: f, special_product_types: @special_product_types,special_product: @special_product} %>
+    <%= render 'spree/admin/shared/edit_resource_links' %>
+  </fieldset>
+<% end %>

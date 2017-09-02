@@ -1,0 +1,19 @@
+<div class="table-responsive">
+  <table class="table-bordered table table-hover">
+    <thead>
+        <tr>
+            <th class="cart-item-img"></th>
+            <th class="cart-product-name"><%= Spree.t(:item) %></th>
+            <th class="unit-price"><%= Spree.t(:price) %></th>
+            <th class="quantity"><%= Spree.t(:qty) %></th>
+            <th class="subtotal"><%= Spree.t(:total) %></th>
+            <th class="remove-icon"></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        <%= render partial: 'spree/orders/shared/line_item',
+                       collection: order_form.object.line_items,
+                       locals: { order_form: order_form } %>
+    </tbody>
+  </table>
+</div><!-- /.table-responsive -->

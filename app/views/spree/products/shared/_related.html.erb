@@ -1,0 +1,47 @@
+  <!-- related product area start-->
+  <% if @product.has_related_products?('related').present? %>
+  <div class="related-product home2">
+    <% if @product.related.present? %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="product-title">
+              <h2>related products</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="related-slider">
+            <% @product.related.each do |relation| %>
+              <div class="col-md-12">
+                <div class="single-product">
+                  <div class="product-img">
+                    <% url = product_path(relation.id) %>
+                    <%= link_to url, itemprop: "url" do %>
+                    <%= image_two_products(relation) %>
+                    <% end %>
+                  </div>
+                  <%= render partial: 'spree/products/shared/action', locals: { product: relation } %>
+
+                  <div class="product-price">
+                    <div class="product-name">
+                      <%= link_to relation.name, product_path(relation.id)%>
+                    </div>
+                    <div class="price-rating">
+                      <span><%= display_price(relation) %>
+                      </span>
+                      <div class="ratings">
+                        <%= render 'spree/reviews/stars', stars: relation.stars %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+<% end %>
+  <!-- related product area end-->

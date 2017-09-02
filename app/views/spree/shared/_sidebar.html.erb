@@ -1,0 +1,22 @@
+<% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
+<div class="col-sm-3">
+  <div class="product-sidebar">
+    <div class="sidebar-title">
+      <h2>Shopping Options</h2>
+    </div>
+    <% @taxonomies.each do |taxonomy| %>
+      <% cache [I18n.locale, taxonomy, max_level, @taxon] do %>
+        <% if taxonomy.root.children.any? %>
+          <div class="single-sidebar">
+            <div class="single-sidebar-title">
+              <h3><%= taxonomy.name %></h3>
+            </div>
+            <div class="single-sidebar-content">
+              <%= taxons_tree(taxonomy.root, @taxon, max_level) %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

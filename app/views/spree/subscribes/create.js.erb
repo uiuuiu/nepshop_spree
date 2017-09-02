@@ -1,0 +1,4 @@
+<% if @message.present? %>
+  $('.message-sub').html("<br ><p style='color: <%= @message[1] %>'><%= @message[0] %></p>");
+  $('#subscribe_email').val('')
+<% end %>

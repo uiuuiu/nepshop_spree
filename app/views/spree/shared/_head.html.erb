@@ -1,0 +1,19 @@
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<%== meta_data_tags %>
+<title><%= title %></title>
+<%= favicon_link_tag 'favicon.ico' %>
+<%= canonical_tag(current_store.url) %>
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Norican',
+      media: 'all', 'data-turbolinks-track' => true %>
+<%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Montserrat:400,700',
+      media: 'all', 'data-turbolinks-track' => true %>
+<%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800',
+      media: 'all', 'data-turbolinks-track' => true %>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= render 'spree/shared/shim' %>
+<%= render 'spree/shared/paths' %>
+<%= javascript_include_tag 'application' %>
+<%= yield :head %>

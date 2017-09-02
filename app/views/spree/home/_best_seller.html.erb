@@ -1,0 +1,32 @@
+<div class="sell-area home2">
+  <% if @bestsellers.present? %>
+    <div class="sell-heading">
+      <h2> Best seller </h2>
+      <p><%= @bestsellers.first.special_product_type.description %></p>
+    </div>
+    <div class="sell-slider">
+      <% @bestsellers.each do |bestseller| %>
+        <div class="single-product">
+          <div class="product-img">
+            <% url = product_path(bestseller.product.id) %>
+            <%= link_to url, itemprop: "url" do %>
+              <%= image_two_products(bestseller.product) %>
+            <% end %>
+          </div>
+          <div class="product-price">
+            <div class="product-name">
+              <%= link_to bestseller.product.name, product_path(bestseller.product.id)%>
+            </div>
+            <div class="price-rating">
+              <div class="ratings">
+                <%= render 'spree/reviews/stars', stars: bestseller.product.stars %>
+              </div>
+              <span><%= display_price(bestseller.product) %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<!-- sell area end -->

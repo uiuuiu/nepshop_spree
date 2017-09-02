@@ -1,0 +1,6 @@
+<% if @error_message.present? %>
+  alert("<%= @error_message %>")
+<% else %>
+  $('.append-carts-size').html('<%= j render "spree/shared/cart_menu" %>');
+  $('.notify-add-cart').fadeIn().delay(2500).fadeOut('slow');
+<% end %>

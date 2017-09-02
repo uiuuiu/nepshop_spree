@@ -1,0 +1,70 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:navigation), spree.admin_navigations_path %> /
+  <%= "New Navigation" %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <span id="new_add_navigation" data-hook>
+    <%= button_link_to "Add Sub Navigation", "javascript:;", { icon: 'add', :'data-target' => "tbody#navigations", class: 'btn-success spree_add_fields' } %>
+  </span>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/error_messages',
+  locals: { target: @navigation } %>
+<div class="control-group" id="fields">
+  <div class="controls">
+    <%= form_for [:admin, @navigation], role: "form" do |f| %>
+      <fieldset>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name , class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :banner %>
+              <%= f.file_field :image, class: "form-control" %>
+            </div>
+
+            <table class="table table-condensed table-bordered sortable" data-hook
+              data-sortable-link="<%= update_positions_admin_navigations_url %>">
+              <thead data-hook="option_header">
+                <tr>
+                  <th><%= Spree.t(:name) %></th>
+                  <th>Link</th>
+                  <th class="actions"></th>
+                </tr>
+              </thead>
+              <tbody id="navigations">
+                <%= f.fields_for @navigation do |form|%>
+                  <%= render partial: 'sub_navigation_fields',
+                    locals: { form: form } %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="cold-md-6">
+            <div class="col-md-6 form-group">
+              <%= f.label :link_navigation %>
+              <%= f.text_field :link_navigation, class: "form-control" %>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <%= f.label :link_banner %>
+              <%= f.text_field :link_image, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.label :taxonomies %>
+            <%= f.select :taxonomy_ids, options_for_select(@taxonomies.collect{|taxonomy| [taxonomy.name, taxonomy.id]}), {}, multiple: true, class: "form-control" %>
+          </div>
+        </div>
+        <%= render partial: 'spree/admin/shared/new_resource_links' %>
+      </fieldset>
+    <% end %>
+  </div>
+</div>
+<%= render partial: 'spree/admin/navigations/js' %>

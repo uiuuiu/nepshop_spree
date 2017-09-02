@@ -1,0 +1,32 @@
+<% if current_page?(controller: 'navigations', action: 'new') %>
+  <tr class="navigation fields" data-hook="navigation">
+    <td>
+      <%= text_field_tag 'sub_navigations[]', nil, class: "form-control name_nav" %>
+    </td>
+    <td>
+      <%= text_field_tag 'link_navigations[]', nil, class: "form-control link_nav" %>
+    </td>
+    <td class="actions actions-1 text-center">
+      <%= link_to_icon_remove_fields form %>
+    </td>
+  </tr>
+<% else %>
+  <tr class="navigation fields" id="<%= spree_dom_id navigation %>" data-hook="navigation">
+    <td class="move-handle text-center">
+      <span class="icon icon-move handle"></span>
+      <% form.hidden_field :id %>
+    </td>
+    <td class="name">
+      <%= hidden_field_tag '[sub_navigations][][id]', navigation.id %>
+      <%= text_field_tag '[sub_navigations][][name]', navigation.name,
+        class: "form-control name_nav" %>
+    </td>
+    <td>
+      <%= text_field_tag '[sub_navigations][][link_navigation]',
+        navigation.link_navigation, class: "form-control link_nav" %>
+    </td>
+    <td class="actions actions-1 text-center">
+      <%= link_to_icon_remove_fields form %>
+    </td>
+  </tr>
+<% end %>

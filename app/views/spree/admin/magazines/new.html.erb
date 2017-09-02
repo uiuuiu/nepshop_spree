@@ -1,0 +1,10 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:magazines), spree.admin_magazines_path %> /
+  <%= "New Template Magazine" %>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @magazine } %>
+
+<%= form_for [:admin, @magazine] do |f| %>
+  <%= render partial: "form", locals: {f: f} %>
+<% end %>

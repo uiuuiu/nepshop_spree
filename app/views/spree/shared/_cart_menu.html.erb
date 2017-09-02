@@ -1,0 +1,21 @@
+<% @order = simple_current_order %>
+<div class="cart-menu">
+  <ul>
+    <li>
+      <%= link_to_cart %>
+      <% unless @order.nil? or @order.item_count.zero? %>
+        <div class="cart-info">
+          <ul>
+            <%= render partial: 'spree/products/shared/line_item_cart_menu', collection: @order.line_items, as: :line_item %>
+          </ul>
+          <h3>Subtotal:
+            <span>
+              <%= @order.display_total.to_html %>
+            </span>
+          </h3>
+          <%= link_to "Checkout", spree.checkout_path, class: "checkout" %>
+        </div>
+      <% end %>
+    </li>
+  </ul>
+</div>

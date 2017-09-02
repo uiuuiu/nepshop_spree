@@ -1,0 +1,39 @@
+<div class="row" data-hook="admin_page_form_fields">
+  <div class="col-md-10" data-hook="admin_page_form_left">
+    <%= f.label :send_more_email %>
+    <%= f.text_field :more_email, 'data-role': "tagsinput", class: "form-control" %>
+
+    <%= f.label :send_to_all_users %><br >
+    <%= f.check_box :all_user, checked: @mail.all_user %><br >
+
+    <%= f.label :bcc %><br >
+    <%= f.text_field :bcc, 'data-role': "tagsinput", class: "form-control" %><br >
+
+    <%= f.label :type_of_mail %>
+    <%= f.select :spree_magazine_id, options_for_select(@magazines.collect{|magazine| [magazine.title, magazine.id]}, selected: @mail.spree_magazine_id), {prompt: "Select type of mail"}, class: "form-control" %><br >
+
+    <%= f.label :select_date_send_mail %>
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker1'>
+        <%= f.text_field :date_time, class: "form-control" %>
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+
+    <%= render partial: 'spree/admin/shared/new_resource_links' %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+    $('#datetimepicker1').datetimepicker({
+      format: 'DD/MM/YYYY HH:mm'
+    });
+  });
+</script>
+
+<% content_for :js_foot do %>
+  <%= render "spree/admin/mails/tagsinput.js" %>
+<% end %>

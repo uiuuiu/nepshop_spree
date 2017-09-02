@@ -1,0 +1,30 @@
+<% @class_container = 'product-main-items' %>
+<!-- product main items area start -->
+<div class="row">
+  <%= render partial: 'spree/shared/sidebar' %>
+  <div class="col-sm-9">
+      <%= render partial: 'spree/products/shared/bar' %>
+      <div class="row">
+          <div class="product-content">
+              <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active fade in home2" id="gird">
+                      <% if params[:keywords] %>
+                        <div data-hook="search_results">
+                          <% if @products.empty? %>
+                            <h6 class="search-results-title"><%= Spree.t(:no_products_found) %></h6>
+                          <% else %>
+                            <%= render partial: 'spree/products/shared/products', locals: { products: @products, taxon: @taxon } %>
+                          <% end %>
+                        </div>
+                      <% else %>
+                        <% cache(cache_key_for_products) do %>
+                          <%= render partial: 'spree/products/shared/products', locals: { products: @products, taxon: @taxon } %>
+                        <% end %>
+                      <% end %>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- product main items area end -->

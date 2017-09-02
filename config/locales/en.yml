@@ -1,0 +1,29 @@
+en:
+  spree:
+    out_of_stock: Out of Stock
+    in_stock: In stock
+    clear_shopping_cart: Clear shopping cart
+    description_coupon: Enter your coupon code if you have one.
+    proceed_checkout: Proceed to checkout
+    grand_total: Grand total
+    update_shopping_cart: Update shopping cart
+    navigation: "Navigation"
+    magazine: "Magazine"
+    magazines: "Magazines"
+    title: "Title"
+    content: "Content"
+    send_mail: "Send Mail"
+    mails: "Mails"
+    special_product: "Special Products"
+    slider: "Slider"
+    sliders: "Sliders"
+    order_state:
+      send_message: "Send Message"
+    print_invoice:
+      date: "Date"
+      document_type: "Ducument Type"
+      number: "Number"
+      firstname: "Firstname"
+      lastname: "Lastname"
+      email: "Email"
+      total: "Total"
